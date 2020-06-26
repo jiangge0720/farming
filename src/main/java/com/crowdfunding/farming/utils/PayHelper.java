@@ -1,12 +1,13 @@
 package com.crowdfunding.farming.utils;
 
 import com.crowdfunding.farming.config.PayConfig;
-import com.crowdfunding.farming.service.OrderService;
+import com.crowdfunding.farming.service.impl.OrderServiceImpl;
 import com.github.wxpay.sdk.WXPay;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class PayHelper {
     private StringRedisTemplate redisTemplate;
 
     @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderServiceImpl;
 
     public PayHelper(PayConfig payConfig) {
         // 真实开发时
@@ -106,7 +107,7 @@ public class PayHelper {
                 // success，则认为付款成功
 
                 // 修改订单状态
-                this.orderService.updateStatus(orderId, 2);
+                this.orderServiceImpl.updateStatus(orderId, 2);
                 return PayState.SUCCESS;
             } else if (StringUtils.equals("USERPAYING", state) || StringUtils.equals("NOTPAY", state)) {
                 // 未付款或正在付款，都认为是未付款

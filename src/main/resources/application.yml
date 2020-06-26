@@ -1,1 +1,49 @@
+server:
+  port: 8888
 
+logging:
+  pattern:
+    console: "%d - [%thread] - %msg%n"
+  level:
+    web: info, error, debug
+    com.crowdfunding.farming: error, info, debug
+
+spring:
+  application:
+    name: farming
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: Kevin614718
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 5000ms
+    cache:
+      type: redis
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: -1
+      max-request-size: -1   # 设置最大的请求文件的大小
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/farming?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: Kevin614718
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1

@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 
 /**
  * @author Jiang-gege
@@ -22,10 +24,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("order")
 public class OrderController {
 
-    @Autowired
+    @Resource
     private OrderService orderService;
 
-    @Autowired
+    @Resource
     private PayHelper payHelper;
 
     /**
@@ -37,7 +39,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<Long> createOrder(@RequestBody Order order,
                                             @RequestBody User user) {
-        Long id = this.orderService.createOrder(order,user);
+        Long id = orderService.createOrder(order,user);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -49,7 +51,7 @@ public class OrderController {
      */
     @GetMapping("{id}")
     public ResponseEntity<Order> queryOrderById(@PathVariable("id") Long id) {
-        Order order = this.orderService.queryById(id);
+        Order order = orderService.queryById(id);
         if (order == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -67,7 +69,7 @@ public class OrderController {
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "rows", defaultValue = "5") Integer rows,
             @RequestParam(value = "status", required = false) Integer status) {
-        PageResult<Order> result = this.orderService.queryUserOrderList(page, rows, status);
+        PageResult<Order> result = orderService.queryUserOrderList(page, rows, status, null);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -84,7 +86,7 @@ public class OrderController {
     @PutMapping("{id}/{status}")
 
     public ResponseEntity<Boolean> updateStatus(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
-        Boolean boo = this.orderService.updateStatus(id, status);
+        Boolean boo = orderService.updateStatus(id, status);
         if (boo == null) {
             // 返回400
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
