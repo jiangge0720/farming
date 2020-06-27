@@ -1,30 +1,30 @@
 server:
-  port: 8888
+  port: 8080
 
-logging:
-  pattern:
-    console: "%d - [%thread] - %msg%n"
-  level:
-    web: info, error, debug
-    com.crowdfunding.farming: error, info, debug
+#logging:
+#  pattern:
+#    console: "%d - [%thread] - %msg%n"
+#  level:
+#    web: info, error, debug
+#    com.crowdfunding.farming: error, info, debug
 
 spring:
   application:
     name: farming
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    password: Kevin614718
-    jedis:
-      pool:
-        max-active: 100
-        max-wait: -1ms
-        max-idle: 8
-        min-idle: 0
-    timeout: 5000ms
-    cache:
-      type: redis
+#  redis:
+#    database: 0
+#    host: 127.0.0.1
+#    port: 6379
+#    password: Kevin614718
+#    jedis:
+#      pool:
+#        max-active: 100
+#        max-wait: -1ms
+#        max-idle: 8
+#        min-idle: 0
+#    timeout: 5000ms
+#    cache:
+#      type: redis
 
   servlet:
     multipart:
@@ -33,9 +33,9 @@ spring:
       max-request-size: -1   # 设置最大的请求文件的大小
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/farming?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/nongye?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
-    password: Kevin614718
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -47,3 +47,12 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+
+mybatis:
+  type-aliases-package: com.crowdfunding.farming.pojo
+  mapper-locations: mapper/OrderMapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+mapper:
+  not-empty: false
+  identity: mysql

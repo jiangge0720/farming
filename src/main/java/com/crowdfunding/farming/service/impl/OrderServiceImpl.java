@@ -131,13 +131,13 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public PageResult<Order> queryUserOrderList(Integer page, Integer rows, Integer status, User user) {
+  public PageResult<Order> queryUserOrderList(Integer page, Integer rows, Integer status, Integer userId) {
     try {
       // 分页
       PageHelper.startPage(page, rows);
       // 获取登录用户
       // 创建查询条件
-      Page<Order> pageInfo = (Page<Order>) this.orderMapper.queryOrderList(user.getUserId().longValue(), status);
+      Page<Order> pageInfo = (Page<Order>) this.orderMapper.queryOrderList(userId, status);
 
       return new PageResult<>(pageInfo.getTotal(), pageInfo);
     } catch (Exception e) {

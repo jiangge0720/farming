@@ -33,13 +33,13 @@ public interface OrderService {
    * @param page
    * @param rows
    * @param status
-   * @param user
+   * @param userId
    * @return
    */
   PageResult<Order> queryUserOrderList(Integer page,
                                        Integer rows,
                                        Integer status,
-                                       User user);
+                                       Integer userId);
 
   /**
    *

@@ -7,5 +7,6 @@ import tk.mybatis.mapper.common.Mapper;
  * @author Jiang-gege
  * 2020/6/2417:09
  */
+@org.apache.ibatis.annotations.Mapper
 public interface CrowdFundingMapper extends Mapper<CrowdFunding> {
 }

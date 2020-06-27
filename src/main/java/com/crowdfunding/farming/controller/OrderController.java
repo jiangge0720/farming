@@ -68,8 +68,9 @@ public class OrderController {
     public ResponseEntity<PageResult<Order>> queryUserOrderList(
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "rows", defaultValue = "5") Integer rows,
-            @RequestParam(value = "status", required = false) Integer status) {
-        PageResult<Order> result = orderService.queryUserOrderList(page, rows, status, null);
+            @RequestParam(value = "status", required = false) Integer status,
+            @RequestParam(value = "userId") Integer userId) {
+        PageResult<Order> result = orderService.queryUserOrderList(page, rows, status, userId);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -32,6 +32,7 @@ public class Order {
     private String receiverZip; // 邮政编码,如：310001
     private Integer invoiceType;// 发票类型，0无发票，1普通发票，2电子发票，3增值税发票
     private Integer sourceType;// 订单来源 1:app端，2：pc端，3：M端，4：微信端，5：手机qq端
+    private String  crowdFundingId;
 
     @Transient
     private OrderDetail orderDetail;
@@ -39,7 +40,5 @@ public class Order {
     @Transient
     private Integer status;
 
-    @Transient
-    private String  crowdFundingId;
 
 }
