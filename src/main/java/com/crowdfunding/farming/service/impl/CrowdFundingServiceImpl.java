@@ -26,7 +26,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
   @Override
   public String createCrowdingFunding(CrowdFunding crowdFunding) {
-    String crowdFundingId = String.valueOf(idWorker.nextId());
+    String crowdFundingId = crowdFunding.getId();
     crowdFunding.setId(crowdFundingId);
     crowdFunding.setSell(0);
     crowdFunding.setStatus(0);
