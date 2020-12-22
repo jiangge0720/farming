@@ -3,6 +3,7 @@ package com.crowdfunding.farming.pojo;
 import lombok.Data;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -16,15 +17,19 @@ public class Spu {
 
     private String title;
 
-    private Integer saleable;
-
     private String name;
-
-    private BigDecimal price;
 
     private String description;
 
-    private String unit;
+    private Long cid1;// 1级类目
 
-    private Integer stock;
+    private Long cid2;// 2级类目
+
+    private Long cid3;// 3级类目
+
+    private String image;
+
+    @Transient
+    private String cname;
+
 }

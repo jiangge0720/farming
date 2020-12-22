@@ -15,6 +15,8 @@ public class CrowdFunding {
 
     private String id;
 
+    private Integer creator;
+
     private String goodsName;
 
     private Long goodsId;
@@ -32,4 +34,8 @@ public class CrowdFunding {
     private Integer status;
 
     private Integer type;
+    
+    private String address;
+
+    private String image;
 }

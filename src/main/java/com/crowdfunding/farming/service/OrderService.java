@@ -2,6 +2,7 @@ package com.crowdfunding.farming.service;
 
 import com.crowdfunding.farming.pojo.Order;
 import com.crowdfunding.farming.pojo.User;
+import com.crowdfunding.farming.vo.OrderVO;
 import com.crowdfunding.farming.vo.PageResult;
 
 /**
@@ -16,10 +17,9 @@ public interface OrderService {
   /**
    *
    * @param order
-   * @param user
    * @return
    */
-  Long createOrder(Order order, User user);
+  Long createOrder(OrderVO orderVo);
 
   /**
    *

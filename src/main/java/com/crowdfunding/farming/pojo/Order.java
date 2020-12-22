@@ -19,10 +19,10 @@ public class Order {
     private Date createTime;// 创建时间
     private String shippingName;// 物流名称
     private String shippingCode;// 物流单号
-    private Long userId;// 用户id
+    private String userId;// 用户id
     private String buyerMessage;// 买家留言
     private String buyerNick;// 买家昵称
-    private Boolean buyerRate;// 买家是否已经评价
+    private Integer buyerRate;// 买家是否已经评价
     private String receiver; // 收货人全名
     private String receiverMobile; // 移动电话
     private String receiverState; // 省份
@@ -36,6 +36,7 @@ public class Order {
 
     @Transient
     private OrderDetail orderDetail;
+
 
     @Transient
     private Integer status;

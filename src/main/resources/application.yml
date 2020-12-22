@@ -1,5 +1,8 @@
 server:
   port: 8080
+  servlet:
+    context-path: /farming
+
 
 #logging:
 #  pattern:
@@ -33,9 +36,11 @@ spring:
       max-request-size: -1   # 设置最大的请求文件的大小
 
   datasource:
-    url: jdbc:mysql://mysql:3306/crowd-funding?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
+    #url: jdbc:mysql://localhost:3306/nongye?serverTimezone=UTC
+    url: jdbc:mysql://47.98.216.68/crowd-funding?serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
-    password: Kevin614718
+    password: 123456
+    #password: Kevin614718
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -49,10 +54,19 @@ spring:
       connection-test-query: SELECT 1
 
 mybatis:
-  type-aliases-package: com.crowdfunding.farming.pojo
+  type-aliases-package: com.crowdfunding.farming.ptojo
   mapper-locations: mapper/OrderMapper.xml
   configuration:
     map-underscore-to-camel-case: true
 mapper:
   not-empty: false
   identity: mysql
+
+farming:
+  jwt:
+    secret: farming@Login(Auth}*^31)&zlj% # 登录校验的密钥
+    pubKeyPath: F:/upload/rsa/rsa.pub # 公钥地址
+    priKeyPath: F:/upload/rsa/rsa.pri # 私钥地址
+    expire: 30 # 过期时间,单位分钟
+    cookieMaxAge: 1800 #cookie的过期时间
+    cookieName: FARMING_TOKEN #cookie的名称
