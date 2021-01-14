@@ -12,6 +12,14 @@ import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Jiang-gege
@@ -24,6 +32,8 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
   private final IdWorker idWorker;
 
   private final CrowdFundingMapper crowdFundingMapper;
+
+  private static final List<String> ALLOW_TYPES = Arrays.asList("image/jpeg","image/png");
 
   public CrowdFundingServiceImpl(IdWorker idWorker,
                                  CrowdFundingMapper crowdFundingMapper) {
@@ -39,7 +49,6 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     crowdFunding.setId(crowdFundingId);
     crowdFunding.setSell(0);
     crowdFunding.setStatus(0);
-    crowdFunding.setCreator(user.getId());
     crowdFundingMapper.insertSelective(crowdFunding);
     return crowdFundingId;
   }
@@ -57,12 +66,9 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     try {
       // 分页
       PageHelper.startPage(page, rows);
-      // 获取登录用户
-      UserInfo user = LoginInterceptor.getUserInfo();
-
       // 创建查询条件
       CrowdFunding record = new CrowdFunding();
-      record.setCreator(user.getId());
+      record.setCreator(userId);
       Page<CrowdFunding> pageInfo = (Page<CrowdFunding>) this.crowdFundingMapper.select(record);
 
       return new PageResult<>(pageInfo.getTotal(), pageInfo);
@@ -73,13 +79,37 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
   }
 
   @Override
-  public CrowdFunding queryUserCrowdFundingById(String crowdFundingId) {
+  public CrowdFunding queryUserCrowdFundingById(String crowdFundingId,Integer userId) {
     // 获取登录用户
-    UserInfo user = LoginInterceptor.getUserInfo();
     CrowdFunding record = new CrowdFunding();
     record.setId(crowdFundingId);
-    record.setCreator(user.getId());
+    record.setCreator(userId);
     CrowdFunding crowdFunding = crowdFundingMapper.selectOne(record);
     return crowdFunding;
+  }
+
+  @Override
+  public String uploadImage(MultipartFile file) {
+    try {
+      //校验文件类型
+      String contentType = file.getContentType();
+      if(!ALLOW_TYPES.contains(contentType)){
+        throw new RuntimeException("文件格式不正確");
+      }
+        String originalFilename = file.getOriginalFilename();
+      //准备目标路径
+        //File dest = new File("F:/upload/",originalFilename);
+      File dest = new File("/home/image/",originalFilename);
+      //保存文件到本地
+      file.transferTo(dest);
+
+        //返回路径
+      return "http://47.98.216.68/image/"+file.getOriginalFilename();
+      //return "localhost:8080/"+ originalFilename;
+    } catch (IOException e) {
+      //上传失败
+      throw new RuntimeException("上傳失敗");
+    }
+
   }
 }

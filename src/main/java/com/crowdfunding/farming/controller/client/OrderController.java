@@ -36,7 +36,7 @@ public class OrderController {
     /**
      * 创建订单
 
-      @param order 订单对象
+      @param orderVo 订单对象
      * @return 订单编号
      */
     @PostMapping

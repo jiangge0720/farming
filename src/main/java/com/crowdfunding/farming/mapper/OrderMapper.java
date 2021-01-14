@@ -11,6 +11,6 @@ import java.util.List;
 public interface OrderMapper extends tk.mybatis.mapper.common.Mapper<Order> {
 
     List<Order> queryOrderList(
-            @Param("userId") Integer userId,
+            @Param("userId") String userId,
             @Param("status") Integer status);
 }

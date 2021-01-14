@@ -7,6 +7,7 @@ import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -21,6 +22,13 @@ public class CrowdFundingController {
 
     @Resource
     private CrowdFundingService crowdFundingService;
+
+    @PostMapping("image")
+    @ApiOperation(value = "上传图片", notes = "上传图片")
+    public ResponseEntity<String> uploadImage (@RequestParam("file") MultipartFile file){
+        String url = crowdFundingService.uploadImage(file);
+        return ResponseEntity.ok(url);
+    }
 
     @PostMapping
     @ApiOperation(value = "创建众筹，返回结果", notes = "创建众筹")
@@ -51,8 +59,8 @@ public class CrowdFundingController {
 
     @GetMapping("/id")
     @ApiOperation(value = "根据id查询当前用户众筹项目", notes = "根据id查询当前用户众筹项目")
-    public ResponseEntity<CrowdFunding> queryUserCrowdFundingById(@RequestParam("crowdFundingId") String crowdFundingId) {
-        CrowdFunding result = crowdFundingService.queryUserCrowdFundingById(crowdFundingId);
+    public ResponseEntity<CrowdFunding> queryUserCrowdFundingById(@RequestParam("crowdFundingId") String crowdFundingId,@RequestParam("userId") Integer userId) {
+        CrowdFunding result = crowdFundingService.queryUserCrowdFundingById(crowdFundingId,userId);
         return ResponseEntity.ok(result);
     }
 }

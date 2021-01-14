@@ -65,8 +65,10 @@ mapper:
 farming:
   jwt:
     secret: farming@Login(Auth}*^31)&zlj% # 登录校验的密钥
-    pubKeyPath: F:/upload/rsa/rsa.pub # 公钥地址
-    priKeyPath: F:/upload/rsa/rsa.pri # 私钥地址
+    #pubKeyPath: F:/upload/rsa/rsa.pub ＃公钥地址
+    #priKeyPath: F:/upload/rsa/rsa.pri
+    pubKeyPath: /home/rsa/rsa.pub # 公钥地址
+    priKeyPath: /home/rsa/rsa.pri # 私钥地址
     expire: 30 # 过期时间,单位分钟
     cookieMaxAge: 1800 #cookie的过期时间
     cookieName: FARMING_TOKEN #cookie的名称

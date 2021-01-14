@@ -199,10 +199,8 @@ public class OrderServiceImpl implements OrderService {
     try {
       // 分页
       PageHelper.startPage(page, rows);
-      // 获取登录用户
-      UserInfo user = LoginInterceptor.getUserInfo();
       // 创建查询条件
-      Page<Order> pageInfo = (Page<Order>) this.orderMapper.queryOrderList(user.getId(), status);
+      Page<Order> pageInfo = (Page<Order>) this.orderMapper.queryOrderList(userId.toString(), status);
 
       return new PageResult<>(pageInfo.getTotal(), pageInfo);
     } catch (Exception e) {
